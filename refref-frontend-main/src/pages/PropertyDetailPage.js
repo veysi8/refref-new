@@ -74,7 +74,7 @@ const PropertyDetailPage = () => {
 
     const contactViaWhatsApp = () => {
     // AŞAĞIDAKİ TIRNAK İÇİNDEKİ YERE KENDİ NUMARANI YAZ (Örn: 905321234567)
-    const myNumber = "905551234567"; 
+    const myNumber = "905076761219"; 
     
     const message = encodeURIComponent(`Merhaba, ${property.title} ilanı hakkında bilgi alabilir miyim?`);
     window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
