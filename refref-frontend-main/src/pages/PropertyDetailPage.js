@@ -157,33 +157,38 @@ const PropertyDetailPage = () => {
                   <span className="text-lg">{property.address}</span>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-4xl font-bold text-[#3498DB] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  {formatPrice(property.price)}
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    onClick={addToFavorites}
-                    variant="outline"
-                    size="lg"
-                    className="border-[#3498DB] text-[#3498DB] hover:bg-[#3498DB] hover:text-white"
-                    data-testid="add-favorite-btn"
-                  >
-                    <Heart className="h-5 w-5 mr-2" />
-                    Favorilere Ekle
-                  </Button>
-                  <Button
-                    onClick={contactViaWhatsApp}
-                    size="lg"
-                    className="bg-green-600 text-white hover:bg-green-700"
-                    data-testid="whatsapp-btn"
-                  >
-                    <MessageCircle className="h-5 w-5 mr-2" />
-                    WhatsApp
-                  </Button>
-                </div>
               </div>
+                        {/* Fiyat ve Butonlar - Mobile Özel Esnek Yapı */}
+          <div className="w-full lg:w-auto text-left lg:text-right mt-6 lg:mt-0">
+            {/* Fiyat: Mobilde 3xl, PC'de 4xl */}
+            <div className="text-3xl md:text-4xl font-bold text-[#3498DB] mb-4 break-words" style={{ fontFamily: 'Playfair Display, serif' }}>
+              {formatPrice(property.price)}
             </div>
+            
+            {/* Butonlar: Mobilde alt alta (flex-col), PC'de yan yana (sm:flex-row) */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <Button
+                onClick={addToFavorites}
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto border-[#3498DB] text-[#3498DB] hover:bg-[#3498DB] hover:text-white"
+                data-testid="add-favorite-btn"
+              >
+                <Heart className="h-5 w-5 mr-2" />
+                Favorilere Ekle
+              </Button>
+              <Button
+                onClick={contactViaWhatsApp}
+                size="lg"
+                className="w-full sm:w-auto bg-green-600 text-white hover:bg-green-700"
+                data-testid="whatsapp-btn"
+              >
+                <MessageCircle className="h-5 w-5 mr-2" />
+                WhatsApp
+              </Button>
+            </div>
+          </div>
+
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 p-6 bg-slate-50 rounded-xl">
               {property.rooms && (
