@@ -325,13 +325,16 @@ const PropertyDetailPage = () => {
                 </h3>
                 <div className="aspect-video rounded-xl overflow-hidden" data-testid="matterport-viewer">
                   <iframe
-                    src={property.matterport_url}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allowFullScreen
-                    allow="xr-spatial-tracking"
-                  ></iframe>
+  width="100%"
+  height="100%"
+  src={property.virtualTourUrl}
+  frameBorder="0"
+  allowFullScreen
+  webkitAllowFullScreen="true" 
+  mozAllowFullScreen="true"
+  allow="xr-spatial-tracking; fullscreen"
+  title="3D Sanal Tur"
+></iframe>
                 </div>
               </div>
             )}
