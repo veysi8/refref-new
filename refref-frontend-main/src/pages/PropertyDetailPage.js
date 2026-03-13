@@ -157,7 +157,7 @@ const PropertyDetailPage = () => {
                   <span className="text-lg">{property.address}</span>
                 </div>
               </div>
-              </div>
+            
                         {/* Fiyat ve Butonlar - Mobile Özel Esnek Yapı */}
           <div className="w-full lg:w-auto text-left lg:text-right mt-6 lg:mt-0">
             {/* Fiyat: Mobilde 3xl, PC'de 4xl */}
@@ -188,8 +188,7 @@ const PropertyDetailPage = () => {
               </Button>
             </div>
           </div>
-
-
+         </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 p-6 bg-slate-50 rounded-xl">
               {property.rooms && (
                 <div className="flex items-center gap-3" data-testid="property-rooms">
