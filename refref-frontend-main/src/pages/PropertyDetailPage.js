@@ -330,7 +330,9 @@ const PropertyDetailPage = () => {
                     height="100%"
                     frameBorder="0"
                     allowFullScreen
-                    allow="xr-spatial-tracking"
+                    webkitallowfullscreen="true"
+                    mozallowfullscreen="true"
+                    allow="xr-spatial-tracking; fullscreen"
                   ></iframe>
                 </div>
               </div>
