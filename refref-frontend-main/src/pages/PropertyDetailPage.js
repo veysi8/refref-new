@@ -72,9 +72,12 @@ const PropertyDetailPage = () => {
     }
   };
 
-  const contactViaWhatsApp = () => {
-    const message = encodeURIComponent(`Merhaba, ${property.title} hakkında bilgi almak istiyorum.`);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${message}`, '_blank');
+    const contactViaWhatsApp = () => {
+    // AŞAĞIDAKİ TIRNAK İÇİNDEKİ YERE KENDİ NUMARANI YAZ (Örn: 905321234567)
+    const myNumber = "905551234567"; 
+    
+    const message = encodeURIComponent(`Merhaba, ${property.title} ilanı hakkında bilgi alabilir miyim?`);
+    window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
   };
 
   const formatPrice = (price) => {
