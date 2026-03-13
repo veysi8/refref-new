@@ -324,17 +324,17 @@ const PropertyDetailPage = () => {
                   3D Sanal Tur
                 </h3>
                 <div className="aspect-video rounded-xl overflow-hidden" data-testid="matterport-viewer">
-                 <iframe
-  width="100%"
-  height="100%"
-  src={property.virtualTourUrl}
-  frameBorder="0"
-  allowFullScreen
-  webkitallowfullscreen="true"
-  mozallowfullscreen="true"
-  allow="xr-spatial-tracking; fullscreen"
-  title="3D Sanal Tur"
-></iframe>
+                  <iframe
+                   width="100%"
+                   height="100%"
+                   src={property.virtualTourUrl}
+                   frameBorder="0"
+                   allowFullScreen
+                   webkitAllowFullScreen="true" 
+                   mozAllowFullScreen="true"
+                   allow="xr-spatial-tracking; fullscreen"
+                   title="3D Sanal Tur"
+                   ></iframe>
                 </div>
               </div>
             )}
