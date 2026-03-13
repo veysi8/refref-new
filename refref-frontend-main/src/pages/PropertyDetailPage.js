@@ -25,6 +25,7 @@ const PropertyDetailPage = () => {
   const navigate = useNavigate();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);  
   const [selectedImage, setSelectedImage] = useState(0);
     const handleDirections = () => {
     // Sayfa daha yüklenmeden butona basılırsa hata vermesin diye güvenlik kilidi
@@ -105,29 +106,34 @@ const PropertyDetailPage = () => {
     <div className="min-h-screen bg-slate-50 pt-24" data-testid="property-detail-page">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-12">
         <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 p-2">
-            <div className="lg:col-span-2 h-[500px] rounded-xl overflow-hidden" data-testid="main-image">
+                    {/* VİTRİN FOTOĞRAFLARI (Sahibinden Stili) */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 p-2 mb-8">
+            
+            {/* Büyük Fotoğraf (Tıklanınca Tam Ekran Açar) */}
+            <div 
+              className="lg:col-span-2 h-[500px] rounded-xl overflow-hidden relative cursor-pointer group"
+              onClick={() => setIsGalleryOpen(true)}
+            >
               <img
-                src={property.images[selectedImage] || 'https://images.unsplash.com/photo-1759722668087-efcc63c91ed2?q=85'}
-                alt={property.title}
-                className="w-full h-full object-cover"
+                src={property.images[selectedImage]}
+                alt="Büyük Görsel"
+                className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
               />
+              {/* Tümünü Gör Butonu */}
+              <div className="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-opacity-100 transition shadow-lg">
+                📸 Tüm Fotoğrafları Gör ({property.images.length})
+              </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
+
+            {/* Sağdaki 4 Küçük Fotoğraf Vitrini */}
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-2"> 
               {property.images.slice(0, 4).map((image, index) => (
                 <div
                   key={index}
-                  className="h-[120px] lg:h-[120px] rounded-xl overflow-hidden cursor-pointer"
+                  className={`h-[120px] lg:h-[120px] rounded-xl overflow-hidden cursor-pointer border-2 transition-all ${selectedImage === index ? 'border-blue-600' : 'border-transparent'}`}
                   onClick={() => setSelectedImage(index)}
-                  data-testid={`thumbnail-${index}`}
                 >
-                  <img
-                    src={image}
-                    alt={`${property.title} - ${index + 1}`}
-                    className={`w-full h-full object-cover transition-all ${
-                      selectedImage === index ? 'ring-2 ring-[#3498DB]' : 'opacity-70 hover:opacity-100'
-                    }`}
-                  />
+                  <img src={image} className="w-full h-full object-cover hover:opacity-80 transition" alt="Küçük Görsel" />
                 </div>
               ))}
             </div>
@@ -349,6 +355,70 @@ const PropertyDetailPage = () => {
           </div>
         </div>
       </div>
+           {/* SAHİBİNDEN STİLİ TAM EKRAN FOTOĞRAF GALERİSİ */}
+      {isGalleryOpen && (
+        <div className="fixed inset-0 z-[9999] bg-black bg-opacity-95 flex flex-col items-center justify-center">
+          
+          {/* Kapat Butonu (Sağ Üst Çarpı) */}
+          <button 
+            onClick={() => setIsGalleryOpen(false)} 
+            className="absolute top-5 right-5 text-white text-5xl hover:text-red-500 z-50 transition"
+          >
+            &times;
+          </button>
+
+          {/* Sayfa Sayacı (Örn: 3 / 12) */}
+          <div className="absolute top-5 left-5 text-white text-xl font-semibold bg-black bg-opacity-50 px-4 py-2 rounded-lg">
+            {selectedImage + 1} / {property.images.length}
+          </div>
+
+          {/* Ana Dev Fotoğraf ve Oklar */}
+          <div className="relative w-full h-[75vh] flex items-center justify-center mt-10">
+            {/* Sol Ok */}
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage((prev) => (prev === 0 ? property.images.length - 1 : prev - 1));
+              }}
+              className="absolute left-5 text-white text-7xl hover:text-blue-500 p-4 transition z-50"
+            >
+              &#10094;
+            </button>
+
+            <img 
+              src={property.images[selectedImage]} 
+              alt="Tam Ekran" 
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+
+            {/* Sağ Ok */}
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage((prev) => (prev === property.images.length - 1 ? 0 : prev + 1));
+              }}
+              className="absolute right-5 text-white text-7xl hover:text-blue-500 p-4 transition z-50"
+            >
+              &#10095;
+            </button>
+          </div>
+
+          {/* Alt Kısım: Tüm 12 Fotoğrafın Şeridi */}
+          <div className="h-[15vh] w-full flex justify-center gap-3 overflow-x-auto p-4 mt-4">
+            {property.images.map((img, idx) => (
+              <img 
+                key={idx} 
+                src={img} 
+                onClick={() => setSelectedImage(idx)}
+                className={`h-full w-28 object-cover cursor-pointer rounded-lg border-2 transition-all duration-300 ${
+                  selectedImage === idx ? 'border-blue-500 scale-110 opacity-100' : 'border-transparent opacity-40 hover:opacity-100'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
