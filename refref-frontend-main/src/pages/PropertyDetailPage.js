@@ -323,6 +323,15 @@ const PropertyDetailPage = () => {
                 <h3 className="text-xl font-semibold mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
                   3D Sanal Tur
                 </h3>
+                          <div className="mb-4">
+            <button 
+              onClick={() => window.open(property.matterport_url, '_blank')}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition flex items-center gap-2"
+            >
+              <span>📱 Tam Ekran Başlat (iPhone/iPad)</span>
+            </button>
+          </div>
+
                 <div className="aspect-video rounded-xl overflow-hidden" data-testid="matterport-viewer">
                   <iframe
                     src={property.matterport_url}
